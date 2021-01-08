@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import 'firebase/firestore';
 
   var firebaseConfig = {
     apiKey: "AIzaSyCfEAVJRO1wyzVqwFxLWATV002_901zL8s",
@@ -12,8 +13,10 @@ import 'firebase/storage';
   };
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
-  const storage = firebase.storage()
+  const storage = firebase.storage();
+  const store = firebase.firestore();
+  const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 //   firebase.analytics();
 export {
-    storage, firebase as default
+    storage, store, timestamp
 }
