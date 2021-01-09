@@ -11,10 +11,9 @@ function Upload(){
 
     const onChange = (e) => {
         setTransfer(0);
-        console.log(e.target.files.length);
+        setFiles('');
         for(let i=0; i<e.target.files.length;i++){
             if (e.target.files[i].type !== 'image/png' && e.target.files[i].type !== 'image/jpeg'){
-                console.log(e.target.files[i].type);
                 messsageApi.open({
                     type: 'error',
                     content: 'Only PNG/JPEG files allowed',
@@ -46,7 +45,6 @@ function Upload(){
                         const fileName = file.name
                         const createdAt = timestamp();
                         imageRef.add({ url, createdAt, fileName })
-                        console.log(url)
                     })
             })
         });
@@ -87,6 +85,7 @@ function Upload(){
         e.stopPropagation()
         setDrag(false)
         setTransfer(0);
+        setFiles('');
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
             if (e.dataTransfer.files[i].type !== 'image/png' && e.dataTransfer.files[i].type !== 'image/jpeg') {
                 messsageApi.open({
@@ -99,16 +98,13 @@ function Upload(){
         }
         setByte([...e.dataTransfer.files].reduce((ac, cV) => cV.size + ac, 0))
         setFiles([...e.dataTransfer.files]);
-        console.log(e.dataTransfer.files);
     }
 
     const fileList = files ? files.map(el => <div key={el.name}>
             {el.name}
         </div>
         ) : ''
-    const dragOverlay = drag ? <div></div> : ''
 
-    console.log(files, byte, transfer);
     return (
         <div 
             onDrop={(e) => drop(e)}
@@ -123,13 +119,12 @@ function Upload(){
                     >
                 Choose files or Drag files here to upload!
                     <input type="file" multiple style={{ margin: 'auto', display: 'none', width: '100px' }} id="image" onChange={(e) => onChange(e)}/>
-                    <label htmlFor="image" style={{ border: '2px solid #39d615', background: '#39d615', width: '100px', margin: 'auto'}}>Browse</label>
-                    {dragOverlay}
-                    { fileList }
-                    <Skeleton loading={drag}/>
-                    <Button htmlType="submit" disabled={!files} style={{width: '100px', margin: 'auto'}}>Upload</Button>
+                    <label htmlFor="image" style={{ border: '2px solid #39d615', background: '#39d615', width: '100px', margin: 'auto', cursor: 'pointer'}}>Browse</label>
 
-                    <Progress type="circle" percent={transfer*100/byte}/>
+                    { fileList }
+                    <Skeleton loading={drag} style={{zIndex: '1'}}/>
+                    <Button htmlType="submit" disabled={!files || !files.length} style={{width: '100px', margin: 'auto'}}>Upload</Button>
+                    { files && files.length ? <Progress type="circle" percent={transfer*100/byte}/> : ''}
                 </form>
         </div>
     )

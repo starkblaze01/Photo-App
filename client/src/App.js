@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import './App.css';
 import 'antd/dist/antd.css'; 
+import './App.css';
 import { Redirect, Route, Switch, Link, BrowserRouter as Router } from 'react-router-dom';
 import { Layout, Menu} from 'antd';
 import Upload from './components/Upload';
