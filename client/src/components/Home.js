@@ -15,7 +15,7 @@ function Upload(props) {
                 size='large'
                 onClick={() =>{onClick('upload'); props.changeSelectedKeys('2');}}
             >
-                Upload
+                Upload Images
             </Button>
             <Button
                 style={{
@@ -26,7 +26,7 @@ function Upload(props) {
                 size='large'
                 onClick={() => {onClick('view'); props.changeSelectedKeys('3');}}
             >
-                View
+                View Images
             </Button>
         </div>
     )

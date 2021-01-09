@@ -1,33 +1,44 @@
 import {useState} from 'react';
 import useFireStoreDoc from '../utils/useFireStoreDoc';
-import {Modal} from 'antd';
+import { Modal, Button } from 'antd';
 
 function View() {
     const { docs } = useFireStoreDoc('images');
     console.log(docs);
     const [isModalVisible, setIsModalVisible] = useState(false);
-    const [currentImage, setCurrentImage] = useState('');
+    const [index, setIndex] = useState(0);
+
     const showModal = () => {
         setIsModalVisible(true);
     };
 
-    const handleOk = () => {
-        setIsModalVisible(false);
-    };
-
     const handleCancel = () => {
         setIsModalVisible(false);
+        setIndex(0);
     };
+
+    const footer = (
+        <div>
+            <Button type="ghost" onClick={() => setIndex(prev => prev - 1)} disabled={index <= 0}>Previous</Button>
+            <Button type="primary" onClick={() => setIndex(prev => prev + 1)} disabled={index >= docs.length-1}>Next</Button>
+        </div>
+    )
+
     return (
         <div className="img-grid">
             {docs && docs.map(doc => (
                 <div className="img-wrap" key={doc.id}>
-                    <img src={doc.url} alt={doc.fileName} onClick={() => { showModal(); setCurrentImage(doc);}}/>
+                    <img src={doc.url} alt={doc.fileName} onClick={() => { showModal(); setIndex(docs.indexOf(doc))}}/>
                 </div>
             ))}
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={'100%'} bodyStyle={{height: '80vh'}}>
-                <img src={currentImage.url} alt={currentImage.fileName}/>
-            </Modal>
+            { docs && docs.length ? <Modal title="Image Preview" closable={true} centered={true} 
+                onCancel={handleCancel}
+                visible={isModalVisible}
+                width={'100%'}
+                footer={footer}
+                bodyStyle={{height: '80vh'}}>
+                <img src={docs[index].url} alt={docs[index].fileName} style={{ width: '100%', height: '100%'}}/>
+            </Modal> : ''}
         </div>
     )
 }
