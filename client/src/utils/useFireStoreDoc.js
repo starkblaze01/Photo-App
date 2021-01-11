@@ -4,19 +4,22 @@ import { store } from './firebase';
 
 const useFireStoreDoc = (collection, last) => {
     const [docs, setDocs] = useState([]);
-
+    const [isLast, setIsLast] = useState(false);
     useEffect(() => {
         if (last){
             const unsub = store.collection(collection)
                 .orderBy("createdAt", "desc")
-                .startAt(last)
+                .startAfter(last)
                 .limit(30)
                 .onSnapshot((snap) => {
                     let documents = []
                     snap.forEach((doc) => {
                         documents.push({ ...doc.data(), id: doc.id })
                     });
-                    setDocs(documents)
+                    if(!documents.length){
+                        setIsLast(true)
+                    }
+                    setDocs(prev => prev.concat(documents))
                 });
             return () => unsub();
 
@@ -44,10 +47,10 @@ const useFireStoreDoc = (collection, last) => {
             groupBy[date] = [el];
         }
     })
-    console.log(groupBy);
     let keys = Object.keys(groupBy).reverse()
     let totalDocs = docs.length
-    return { groupBy, keys, totalDocs, docs};
+    console.log(totalDocs, isLast)
+    return { groupBy, keys, totalDocs, docs, isLast};
 }
 
 export default useFireStoreDoc;
