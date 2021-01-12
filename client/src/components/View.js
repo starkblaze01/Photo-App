@@ -29,8 +29,8 @@ function View() {
     const grid = keys.map((el) =>
                     <div key={el}>
                        <Title level={3}>
-                            {new Date(groupBy[el][0].createdAt.seconds * 1000).toDateString()} | {groupBy[el].length} Images
-                        </Title>
+                            {new Date(groupBy[el][0].createdAt.seconds * 1000).toDateString()} | No. of Images: {groupBy[el].length}
+                        </Title> 
                     
                         <div className="img-grid">
                             {groupBy[el] && groupBy[el].map(doc => (

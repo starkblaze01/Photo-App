@@ -49,7 +49,6 @@ const useFireStoreDoc = (collection, last) => {
     })
     let keys = Object.keys(groupBy).reverse()
     let totalDocs = docs.length
-    console.log(totalDocs, isLast)
     return { groupBy, keys, totalDocs, docs, isLast};
 }
 
