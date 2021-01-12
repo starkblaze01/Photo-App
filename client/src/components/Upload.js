@@ -13,7 +13,7 @@ function Upload(){
         setTransfer(0);
         setFiles('');
         for(let i=0; i<e.target.files.length;i++){
-            if (e.target.files[i].type !== 'image/png' && e.target.files[i].type !== 'image/jpeg'){
+            if (e.target.files[i].type !== 'image/png' && e.target.files[i].type !== 'image/jpeg' && e.target.files[i].type !== 'image/jpg'){
                 messsageApi.open({
                     type: 'error',
                     content: 'Only PNG/JPEG files allowed',
@@ -49,11 +49,13 @@ function Upload(){
             })
         });
         Promise.all(promises)
-            .then(() => messsageApi.open({
+            .then(() => {messsageApi.open({
                 type: 'success',
                 content: 'All files uploaded successfully',
                 duration: 2,
-            }))
+            })
+            setFiles('');
+        })
             .catch(err => console.log(err));
         
     }

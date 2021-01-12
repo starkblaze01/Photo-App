@@ -26,7 +26,6 @@ function App() {
   return (
     <div className="App">
       <Layout>
-
         <Router>
         <Header style={{ width: '100%', background: '#f4c430' }}>
           <Menu mode="horizontal" selectedKeys={[tab]} style={{ background: '#f4c430', display: 'flex', justifyContent: 'space-between' }}>
