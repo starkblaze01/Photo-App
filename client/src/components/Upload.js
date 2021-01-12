@@ -56,7 +56,14 @@ function Upload(){
             })
             setFiles('');
         })
-            .catch(err => console.log(err));
+            .catch(err => {
+                console.log(err);
+                return messsageApi.open({
+                type: 'error',
+                content: 'Error while uploading the file',
+                duration: 2,
+            })
+        });
         
     }
     let dragCount = 0
