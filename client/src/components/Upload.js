@@ -8,6 +8,8 @@ function Upload(){
     const [drag, setDrag] = useState(false);
     const [byte, setByte] = useState(0);
     const [transfer, setTransfer] = useState(0);
+    const [dragCount, setDragCount] = useState(0);
+
 
     const onChange = (e) => {
         setTransfer(0);
@@ -66,7 +68,6 @@ function Upload(){
         });
         
     }
-    let dragCount = 0
     const dragOver = (e) => {
         e.preventDefault()
         e.stopPropagation()
@@ -74,8 +75,7 @@ function Upload(){
     const dragIn = (e) => {
         e.preventDefault()
         e.stopPropagation()
-        
-        dragCount = dragCount + 1
+        setDragCount(prev => prev+1)
         if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
             setDrag(true)
         }
@@ -83,7 +83,7 @@ function Upload(){
     const dragOut = (e) => {
         e.preventDefault()
         e.stopPropagation()
-        dragCount = dragCount - 1
+        setDragCount(prev => prev-1)
         if (dragCount === 0) {
             setDrag(false)
         }
@@ -96,7 +96,7 @@ function Upload(){
         setTransfer(0);
         setFiles('');
         for (let i = 0; i < e.dataTransfer.files.length; i++) {
-            if (e.dataTransfer.files[i].type !== 'image/png' && e.dataTransfer.files[i].type !== 'image/jpeg') {
+            if (e.dataTransfer.files[i].type !== 'image/png' && e.dataTransfer.files[i].type !== 'image/jpeg' && e.target.files[i].type !== 'image/jpg') {
                 messsageApi.open({
                     type: 'error',
                     content: 'Only PNG/JPEG files allowed',
@@ -123,7 +123,7 @@ function Upload(){
         >
             {contextHolder}
                 <form
-                    style={{ minHeight: '200px', minWidth: '200px', background: '#d3d3d3', display: 'flex', flexDirection: 'column', justifyContent: 'center'}}
+                    style={{ minHeight: '200px', minWidth: '200px', background: '#d3d3d3', display: 'flex', flexDirection: 'column', justifyContent: 'center', border:'1px dashed', padding: '10px'}}
                     onSubmit={(e) => uploadFiles(e)}
                     >
                 Choose files or Drag files here to upload!
