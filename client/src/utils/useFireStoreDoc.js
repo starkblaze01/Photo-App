@@ -6,6 +6,7 @@ const useFireStoreDoc = (collection, last) => {
     const [docs, setDocs] = useState([]);
     const [isLast, setIsLast] = useState(false);
     useEffect(() => {
+        // For infinite scrolling last doc information will be present
         if (last){
             const unsub = store.collection(collection)
                 .orderBy("createdAt", "desc")
@@ -23,7 +24,8 @@ const useFireStoreDoc = (collection, last) => {
                 });
             return () => unsub();
 
-        } else {
+        } // for fetching data firstt time with no information on last doc
+        else {
             const unsub = store.collection(collection)
                 .orderBy("createdAt", "desc")
                 .limit(30)
@@ -38,6 +40,8 @@ const useFireStoreDoc = (collection, last) => {
 
         }
     }, [collection, last]);
+
+    // Grouping of the data based on Data Upload date
     let groupBy = {}
     docs.forEach((el) => {
         const date = new Date(el.createdAt.seconds * 1000).getDate()
