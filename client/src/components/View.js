@@ -6,26 +6,29 @@ const { Title } = Typography;
 
 function View() {
     const [isModalVisible, setIsModalVisible] = useState(false);
+    // Keep track of Image Preview Index
     const [index, setIndex] = useState(0);
+    // Keep track of the last doc loaded.
     const [lastDoc, setLastDoc] = useState(0);
+    // Fetch the Data from firestore.
     const { groupBy, keys, totalDocs, docs, isLast } = useFireStoreDoc('images', lastDoc);
 
+    // Image preview modal visibility
     const showModal = () => {
         setIsModalVisible(true);
     };
-
     const handleCancel = () => {
         setIsModalVisible(false);
         setIndex(0);
     };
-
+    // Image Preview Modal footer
     const footer = (
         <div>
             <Button type="ghost" onClick={() => setIndex(prev => prev - 1)} disabled={index <= 0}>Previous</Button>
             <Button type="primary" onClick={() => setIndex(prev => prev + 1)} disabled={index >= totalDocs-1}>Next</Button>
         </div>
     )
-
+    // Image Grid nX3
     const grid = keys.map((el) =>
                     <div key={el}>
                        <Title level={3}>
@@ -42,7 +45,7 @@ function View() {
 
                     </div>
                 )
-
+    // To check if the Image grid div has reached at the bottom and Infinite Loading
     const onScroll = (e) => {
         const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
         if(bottom && docs){

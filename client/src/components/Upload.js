@@ -3,14 +3,20 @@ import { storage, store, timestamp } from '../utils/firebase';
 import { Button, message, Progress, Skeleton } from 'antd';
 
 function Upload(){
-    const [files, setFiles] = useState('');
+    // for error and success message
     const [messsageApi, contextHolder] = message.useMessage();
+    // hold the files in local state
+    const [files, setFiles] = useState('');
+    // keep track of drag and drop to show skeleton overlay
     const [drag, setDrag] = useState(false);
+    // keep track of total bytes to upload
     const [byte, setByte] = useState(0);
+    // keep track of bytes transferred
     const [transfer, setTransfer] = useState(0);
+    // to count all the drag propogation on DOM elements to stop skeleton flickering
     const [dragCount, setDragCount] = useState(0);
 
-
+    // files selected via browse
     const onChange = (e) => {
         setTransfer(0);
         setFiles('');
@@ -27,6 +33,7 @@ function Upload(){
         setByte([...e.target.files].reduce( (ac, cV) => cV.size + ac,0))
         setFiles([...e.target.files]);
     }
+    // upload files
     const uploadFiles = (e) => {
         e.preventDefault();
         const promises = [];
@@ -68,6 +75,8 @@ function Upload(){
         });
         
     }
+
+    // drag and drop set up
     const dragOver = (e) => {
         e.preventDefault()
         e.stopPropagation()
