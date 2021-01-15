@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { storage, store, timestamp } from '../utils/firebase';
 import { Button, message, Progress, Skeleton } from 'antd';
+import Resizer from 'react-image-file-resizer';
 
 function Upload(){
     // for error and success message
