@@ -63,8 +63,8 @@ function View() {
                 visible={isModalVisible}
                 width={'100%'}
                 footer={footer}
-                bodyStyle={{height: '80vh'}}>
-                <img src={docs[index].url} alt={docs[index].fileName} style={{ width: '100%', height: '100%'}}/>
+                bodyStyle={{height: '80vh', textAlign: 'center'}}>
+                <img src={docs[index].url} alt={docs[index].fileName} style={{ maxWidth: '100%', maxHeight: '100%'}}/>
             </Modal> : ''}
             {!isLast ? <Spin size="large"/> : ''}
         </div>
