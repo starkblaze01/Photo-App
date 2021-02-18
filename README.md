@@ -37,14 +37,14 @@ This web app is developed using React, Firebase, and Ant-Design.
 - Clone the repository.
 - Create a [firebase](https://console.firebase.google.com/u/0/) acount and create a new project.
 - In the firebase console go to the settings of the newly created project and set the following SDK parameter in [`firebase.js`](https://github.com/starkblaze01/Photo-App/blob/main/client/src/utils/firebase.js) file:
-  - apiKey: YOUR_API_KEY,
-  - authDomain: YOUR_AUTH_DOMAIN ,
-  - databaseURL: YOUR_DATABASE_URL,
-  - projectId: YOUR_PROJECT_ID,
-  - storageBucket: YOUR_STORAGE_BUCKET,
-  - messagingSenderId: YOUR_MESSAGING_SERVER_ID,
-  - appId: YOUR_API_ID,
-  - measurementId: YOUR_MEASUREMENT_ID
+  - `apiKey`: `YOUR_API_KEY`,
+  - `authDomain`: `YOUR_AUTH_DOMAIN` ,
+  - `databaseURL`: `YOUR_DATABASE_URL`,
+  - `projectId`: `YOUR_PROJECT_ID`,
+  - `storageBucket`: `YOUR_STORAGE_BUCKET`,
+  - `messagingSenderId`: `YOUR_MESSAGING_SERVER_ID`,
+  - `appId`: `YOUR_API_ID`,
+  - `measurementId`: `YOUR_MEASUREMENT_ID`
 - Inside the client folder run command `npm start` to start the project.
 
 
