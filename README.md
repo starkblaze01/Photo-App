@@ -7,7 +7,7 @@ _To upload multiple photographs at once and view it in a grid_
 </div>
 
 ---
-This web app is developed using React, Firebase, Ant-Design.
+This web app is developed using React, Firebase, and Ant-Design.
 
 <br/>
 
